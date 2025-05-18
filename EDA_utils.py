@@ -1,6 +1,4 @@
 from pandas.core.dtypes.api import is_numeric_dtype, is_string_dtype
-import plotly.express as px
-import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm

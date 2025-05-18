@@ -1,45 +1,33 @@
 import streamlit as st
 import pandas as pd
 import pickle
-import sys
 import streamlit as st
 
-st.title("Predictor de Nivel de Ansiedad (Escala 0 a 1)")
-
-
 @st.cache_resource
-def load_model(path="modelo_ansiedad.pkl"):
+def load_model(path="outputs/models/ols_anxiety_model.pkl"):
     with open(path, "rb") as f:
         return pickle.load(f)
 
 model = load_model()
 
-# Entradas del usuario
-age = st.slider("Edad", 18, 100, 30)
-sleep_hours = st.slider("Horas de sueño por día", 0.0, 12.0, 7.0)
-activity = st.slider("Horas de actividad física por semana", 0.0, 20.0, 3.0)
-social_support = st.slider("Puntaje de apoyo social (0-100)", 0, 100, 50)
-financial_stress = st.slider("Estrés financiero (0-100)", 0, 100, 50)
-work_stress = st.slider("Estrés laboral (0-100)", 0, 100, 50)
-self_esteem = st.slider("Autoestima (0-100)", 0, 100, 50)
-life_satisfaction = st.slider("Satisfacción con la vida (0-100)", 0, 100, 50)
-loneliness = st.slider("Puntaje de soledad (0-100)", 0, 100, 50)
+st.title("Anxiety Level Predictor")
 
-# DataFrame de entrada
+# Inputs
+stress_level = st.slider("Stress Level", 1, 10, 5)
+sleep_hours = st.number_input("Sleep Hours per Night", min_value=0.0, max_value=24.0, value=7.0, step=0.5)
+therapy_sessions = st.number_input("Therapy Sessions per Month", min_value=0, max_value=12, value=2)
+caffeine_intake = st.number_input("Caffeine Intake (mg/day)", min_value=0, max_value=600, value=200)
+physical_activity = st.number_input("Physical Activity (hrs/week)", min_value=0.0, max_value=10.0, value=3.0, step=0.5)
+
 X_new = pd.DataFrame([{
-    "Age": age,
-    "Sleep_Hours": sleep_hours,
-    "Physical_Activity_Hrs": activity,
-    "Social_Support_Score": social_support,
-    "Financial_Stress": financial_stress,
-    "Work_Stress": work_stress,
-    "Self_Esteem_Score": self_esteem,
-    "Life_Satisfaction_Score": life_satisfaction,
-    "Loneliness_Score": loneliness
+    "Stress Level (1-10)": stress_level,
+    "Sleep Hours": sleep_hours,
+    "Therapy Sessions (per month)": therapy_sessions,
+    "Caffeine Intake (mg/day)": caffeine_intake,
+    "Physical Activity (hrs/week)": physical_activity
 }])
 
-# Predicción
 pred = model.predict(X_new)[0]
-st.metric("Predicción de nivel de ansiedad (0 a 1)", f"{pred:.2f}")
+st.metric("Anxiety Level Prediction", f"{pred*100:.3f}%")
 
 # python -m streamlit run app.py
