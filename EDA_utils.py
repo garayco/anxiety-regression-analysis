@@ -27,37 +27,39 @@ def delete_duplicated_data(data):
     print("Duplicate Records (after):", data[data.duplicated()].shape[0])
 
 
-def plot_numeric_distributions(data, num_cols):
+def plot_numeric_distributions(data, num_cols, show_boxplot=True):
     if num_cols:
 
         cols_length = len(num_cols)
 
-        fig, ax = plt.subplots(2, cols_length, figsize=(6 * cols_length, 10))
+        # Si se muestran boxplots, 2 filas; si no, solo 1 fila
+        n_rows = 2 if show_boxplot else 1
 
+        fig, ax = plt.subplots(n_rows, cols_length, figsize=(6 * cols_length, 5 * n_rows))
+
+        # Asegurar que ax sea siempre 2D para indexar igual
         if cols_length == 1:
             ax = np.expand_dims(ax, axis=1)
+        if n_rows == 1:
+            ax = np.expand_dims(ax, axis=0)
 
         colors = get_distinct_colors(cols_length)
 
         for i, c in enumerate(num_cols):
             color = colors[i]
 
-            # Histogram
+            # Histograma + KDE
             sns.histplot(data[c], kde=True, ax=ax[0, i], color=color)
-
-            # Si es entera y tiene pocos valores únicos, usar xticks enteros
-            # if pd.api.types.is_integer_dtype(data[c]) and data[c].nunique() <= 20:
-            #     min_val = int(data[c].min())
-            #     max_val = int(data[c].max())
-            #     ax[0, i].set_xticks(range(min_val, max_val + 1, 2))
-
             ax[0, i].set_title(c)
 
-            # Boxplot
-            sns.boxplot(x=data[c], ax=ax[1, i], color=color)
-            ax[1, i].set_title(c)
+            # Boxplot solo si show_boxplot es True
+            if show_boxplot:
+                sns.boxplot(x=data[c], ax=ax[1, i], color=color)
+                ax[1, i].set_title(c)
+
         plt.tight_layout()
         plt.show()
+
 
 
 def plot_categorical_distributions(data, cat_cols):
