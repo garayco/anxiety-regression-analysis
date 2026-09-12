@@ -18,9 +18,11 @@ Build a predictive model that estimates a person's anxiety level based on their 
 The dataset used comes from Kaggle and corresponds to a social/anxiety-related dataset with demographic and lifestyle features.
 
 Original source:
+
 - `natezhang123/social-anxiety-dataset`
 
 Relevant variables in the dataset:
+
 - `Stress Level (1-10)`
 - `Sleep Hours`
 - `Caffeine Intake (mg/day)`
@@ -113,6 +115,7 @@ jupyter notebook ML_EDA_Linear_regression.ipynb
 ```
 
 Inside it, the project performs:
+
 - dataset loading and validation
 - duplicate and null-value handling
 - univariate and categorical exploratory analysis
@@ -135,6 +138,7 @@ http://localhost:8501
 ```
 
 The app allows the user to modify values such as:
+
 - stress level
 - sleep hours
 - daily caffeine intake
@@ -177,6 +181,7 @@ The notebook compares several models, including:
 The results show that linear models perform acceptably and remain interpretable, but nonlinear models such as scaled SVR and KNN achieve better predictive performance.
 
 The best-performing models were the scaled versions of:
+
 - SVR (RBF)
 - KNN
 
@@ -195,4 +200,3 @@ These models reached the best values in RMSE, MAE, and R², highlighting the imp
 ## License
 
 This project is distributed for academic and learning purposes. If you reuse the content, please credit the original dataset and project source.
-
