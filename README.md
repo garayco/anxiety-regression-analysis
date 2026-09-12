@@ -1,4 +1,4 @@
-# ML Assignment 1: Anxiety Level Predictor
+# Anxiety Level Predictor
 
 This project develops a machine learning pipeline to estimate anxiety levels from variables such as stress, sleep, physical activity, caffeine intake, therapy sessions, and other lifestyle and health-related indicators.
 
@@ -36,7 +36,7 @@ Relevant variables in the dataset:
 ## Project Structure
 
 ```text
-ML_Assignment_1/
+project-root/
 ├── app.py                      # Streamlit app for inference
 ├── dataset_download.py         # Kaggle dataset downloader
 ├── EDA_utils.py                # Utility functions for visualization and model evaluation
@@ -73,8 +73,8 @@ Before running the project, ensure you have:
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd ML_Assignment_1
+git clone https://github.com/garayco/anxiety-regression-analysis.git
+cd anxiety-regression-analysis
 ```
 
 2. Install dependencies with Poetry:
